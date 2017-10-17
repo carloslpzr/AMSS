@@ -54,11 +54,11 @@ public class MainMenu extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Find");
+        setTitle("Casa de Retiro");
 
         jLabel1.setText("Menu Principal");
 
-        jButton2.setText("Alta de Paciente");
+        jButton2.setText("Alta de Residente");
 
         jButton3.setText("Cancel");
 
