@@ -31,25 +31,27 @@
 package AMSS;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class MainMenu extends javax.swing.JFrame {
     
     /** Creates new form Find */
     public MainMenu() {
         initComponents();
-        String connectionURL = "jdbc:sqlserver://localhost:1433;databaseName=CasaDeRetiro;user=sa;password=Clave123";
-
-		try {
-			// Load SQL Server JDBC driver and establish connection.
-			System.out.print("Connecting to SQL Server ... ");
-			try (Connection connection = DriverManager.getConnection(connectionURL)) {
-				System.out.println("Done.");
-			}
-		} catch (Exception e) {
-			System.out.println();
-			e.printStackTrace();
-		}
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+        public void run() {
+            Connection con = SQLConnection.getInstance();
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println("Connection closed unsuccessfully");
+            }
+            System.out.println("Connection closed");
+        }
+    }, "Shutdown-thread"));
     }
     
     /** This method is called from within the constructor to
@@ -158,6 +160,7 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

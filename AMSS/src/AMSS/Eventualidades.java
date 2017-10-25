@@ -29,6 +29,10 @@
  */
 
 package AMSS;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Eventualidades extends javax.swing.JFrame {
     
@@ -37,6 +41,24 @@ public class Eventualidades extends javax.swing.JFrame {
      */
     public Eventualidades() {
         initComponents();
+        Connection con = SQLConnection.getInstance();
+        String sql = "SELECT Nombre FROM Residentes;";
+        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+                while (resultSet.next()) {
+                        choice1.addItem(resultSet.getString(1));
+                }
+        } catch (Exception e) {
+            System.out.println("Database error.");
+        }
+        
+        sql = "SELECT Nombre FROM Enfermero;";
+        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+                while (resultSet.next()) {
+                        choice2.addItem(resultSet.getString(1));
+                }
+        } catch (Exception e) {
+            System.out.println("Database error.");
+        }
     }
     
     /** This method is called from within the constructor to
@@ -167,6 +189,7 @@ public class Eventualidades extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package AMSS;
-
+import java.sql.Connection;
 /**
  *
  * @author luiss
@@ -16,6 +16,7 @@ public class Desplegar_Info extends javax.swing.JFrame {
      */
     public Desplegar_Info() {
         initComponents();
+        Connection con = SQLConnection.getInstance();
     }
 
     /**
@@ -91,6 +92,7 @@ public class Desplegar_Info extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
