@@ -30,11 +30,26 @@
 
 package AMSS;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 public class MainMenu extends javax.swing.JFrame {
     
     /** Creates new form Find */
     public MainMenu() {
         initComponents();
+        String connectionURL = "jdbc:sqlserver://localhost:1433;databaseName=CasaDeRetiro;user=sa;password=Clave123";
+
+		try {
+			// Load SQL Server JDBC driver and establish connection.
+			System.out.print("Connecting to SQL Server ... ");
+			try (Connection connection = DriverManager.getConnection(connectionURL)) {
+				System.out.println("Done.");
+			}
+		} catch (Exception e) {
+			System.out.println();
+			e.printStackTrace();
+		}
     }
     
     /** This method is called from within the constructor to
@@ -65,6 +80,11 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jButton3.setText("Desplegar info");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Eventualidades");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +94,11 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jButton5.setText("Agregar medicamento");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Reporte de medicina");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +165,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        new Info_Residente().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -148,8 +173,16 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        new Reporte().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new Desplegar_Info().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        new Agregar_Medicamento().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
     
     /**
      * @param args the command line arguments
