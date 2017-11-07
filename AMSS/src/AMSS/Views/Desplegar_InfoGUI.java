@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AMSS;
+package AMSS.Views;
+import AMSS.SQLConnection;
 import java.sql.Connection;
 /**
  *
  * @author luiss
  */
-public class Desplegar_Info extends javax.swing.JFrame {
+public class Desplegar_InfoGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form Desplegar_Info
      */
-    public Desplegar_Info() {
+    public Desplegar_InfoGUI() {
         initComponents();
         Connection con = SQLConnection.getInstance();
     }
@@ -36,8 +37,8 @@ public class Desplegar_Info extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Residentes");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jButton1.setText("Eventualidades");
 
@@ -116,20 +117,21 @@ public class Desplegar_Info extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Desplegar_Info.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Desplegar_InfoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Desplegar_Info.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Desplegar_InfoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Desplegar_Info.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Desplegar_InfoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Desplegar_Info.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Desplegar_InfoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Desplegar_Info().setVisible(true);
+                new Desplegar_InfoGUI().setVisible(true);
             }
         });
     }

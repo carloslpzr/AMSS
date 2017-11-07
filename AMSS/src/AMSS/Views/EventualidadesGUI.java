@@ -28,37 +28,30 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package AMSS;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+package AMSS.Views;
+import AMSS.Controllers.Eventualidades;
+import java.util.ArrayList;
+import java.sql.Date;
 
-public class Eventualidades extends javax.swing.JFrame {
-    
+public class EventualidadesGUI extends javax.swing.JFrame {
+    private Eventualidades eventObj;
     /**
      * Creates new form ContactEditor
      */
-    public Eventualidades() {
+    public EventualidadesGUI() {
         initComponents();
-        Connection con = SQLConnection.getInstance();
-        String sql = "SELECT Nombre FROM Residentes;";
-        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
-                while (resultSet.next()) {
-                        choice1.addItem(resultSet.getString(1));
-                }
-        } catch (Exception e) {
-            System.out.println("Database error.");
-        }
+        ArrayList<String> residentNames = new ArrayList<String>();
+        ArrayList<String> nurseNames = new ArrayList<String>();
+        eventObj = new Eventualidades();
+        residentNames.addAll(eventObj.getResidents());
+        nurseNames.addAll(eventObj.getNurses());
+        residentNames.forEach((name) -> {
+            choice1.add(name);
+        });
+        nurseNames.forEach((name) -> {
+            choice2.add(name);
+        });
         
-        sql = "SELECT Nombre FROM Enfermero;";
-        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
-                while (resultSet.next()) {
-                        choice2.addItem(resultSet.getString(1));
-                }
-        } catch (Exception e) {
-            System.out.println("Database error.");
-        }
     }
     
     /** This method is called from within the constructor to
@@ -72,14 +65,13 @@ public class Eventualidades extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
         jButton4 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         choice1 = new java.awt.Choice();
         choice2 = new java.awt.Choice();
         jLabel1 = new javax.swing.JLabel();
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        textArea1 = new java.awt.TextArea();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
@@ -89,13 +81,6 @@ public class Eventualidades extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Eventualidades"));
 
         jLabel6.setText("Residente:");
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Descripcion..." };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
 
         jButton4.setText("Agregar receta");
 
@@ -107,25 +92,25 @@ public class Eventualidades extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(textArea1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel1)
                         .add(47, 47, 47)
-                        .add(datePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(jScrollPane1)
-                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(datePicker1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
                         .add(jLabel8)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(choice2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(jPanel2Layout.createSequentialGroup()
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
                         .add(jLabel6)
                         .add(21, 21, 21)
                         .add(choice1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+                        .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -142,11 +127,10 @@ public class Eventualidades extends javax.swing.JFrame {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(datePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jButton4)
-                .add(6, 6, 6))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(textArea1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 133, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(7, 7, 7)
+                .add(jButton4))
         );
 
         jButton5.setText("Cancel");
@@ -157,6 +141,11 @@ public class Eventualidades extends javax.swing.JFrame {
         });
 
         jButton6.setText("OK");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,8 +182,22 @@ public class Eventualidades extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        this.dispose();        // TODO add your handling code here:
+        this.dispose();        
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+            int index = choice1.getSelectedIndex()+1;
+            Date date = Date.valueOf(datePicker1.getDate());
+            String description = textArea1.getText();
+            if (index != 0 && date != null && description != null){
+                eventObj.postEvent(index,date,description);
+                this.dispose();
+            }
+        } catch( Exception e){
+            
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -213,14 +216,46 @@ public class Eventualidades extends javax.swing.JFrame {
                     break;
                 }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Eventualidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventualidadesGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Eventualidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventualidadesGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Eventualidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventualidadesGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Eventualidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventualidadesGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -257,7 +292,7 @@ public class Eventualidades extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Eventualidades().setVisible(true);
+                new EventualidadesGUI().setVisible(true);
             }
         });
     }
@@ -273,9 +308,8 @@ public class Eventualidades extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
     
 }

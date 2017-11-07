@@ -28,8 +28,10 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package AMSS;
+package AMSS.Views;
 
+import AMSS.SQLConnection;
+import AMSS.Views.EventualidadesGUI;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -164,27 +166,27 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new Eventualidades().setVisible(true);        // TODO add your handling code here:
+        new EventualidadesGUI().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        new Info_Residente().setVisible(true);        // TODO add your handling code here:
+        new Info_ResidenteGUI().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new Registro().setVisible(true);
+        new RegistroGUI().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        new Reporte().setVisible(true);        // TODO add your handling code here:
+        new ReporteGUI().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new Desplegar_Info().setVisible(true);        // TODO add your handling code here:
+        new Desplegar_InfoGUI().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new Agregar_Medicamento().setVisible(true);        // TODO add your handling code here:
+        new Agregar_MedicamentoGUI().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
     
     /**
