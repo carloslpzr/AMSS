@@ -7,6 +7,7 @@ package AMSS.Models;
 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 /**
  *
  * @author Carlos
@@ -20,16 +21,21 @@ public class Cuarto {
         this.cama = cama;
     }
     
-    public void post(Connection con){
-        String sql = "INSERT INTO Cuarto (ID_Residente, Fecha, Acontecimiento) VALUES (?, ?);";
-        try (PreparedStatement statement = con.prepareStatement(sql)) {
-					statement.setInt(1, index);
-					statement.setDate(2, date);
-                                        statement.setString(3, description);
+    public int post(Connection con){
+        String sql = "INSERT INTO Cuarto (NumeroCuarto, NumeroCama) VALUES (?, ?);";
+        try (PreparedStatement statement = con.prepareStatement(sql, new String[]{"ID_Residente"})) {
+					statement.setInt(1, cuarto);
+					statement.setInt(2, cama);
 					int rowsAffected = statement.executeUpdate();
 					System.out.println(rowsAffected + " row(s) inserted");
+                                        ResultSet rs = statement.getGeneratedKeys();
+                                        if(rs.next()){
+                                            int id = rs.getInt(1);
+                                            return id;
+                                        }
 	} catch(Exception e){
             System.out.println("error");
         }
+        return -1;
     }
 }

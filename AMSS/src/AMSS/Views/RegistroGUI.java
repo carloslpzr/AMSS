@@ -36,6 +36,7 @@ import AMSS.Models.HistorialMedico;
 import AMSS.Models.Residente;
 import AMSS.Models.SeguroMedico;
 import java.sql.Date;
+import javax.swing.JOptionPane;
         
 public class RegistroGUI extends javax.swing.JFrame {
     private Registro registro;
@@ -411,38 +412,44 @@ public class RegistroGUI extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         //Residente
-        String nombre = jTextField3.getText();
-        String apellido = jTextField4.getText();
-        Date fechaLlegada = Date.valueOf(datePicker3.getDate());
-        Date fechaNacimiento = Date.valueOf(datePicker4.getDate());
-        Residente residente = new Residente(nombre, apellido, fechaLlegada, fechaNacimiento);
-        
-        //Cuarto
-        int numCuarto = Integer.parseInt(jTextField1.getText());
-        int cama = Integer.parseInt(jTextField2.getText());
-        Cuarto cuarto = new Cuarto(numCuarto, cama);
-        
-        //Familiar
-        String fNombre = jTextField9.getText();
-        int fEdad = Integer.parseInt(jTextField10.getText());
-        String fTelefono = jTextField11.getText();
-        String fDireccion = jTextField12.getText();
-        Familiar familiar = new Familiar(fNombre, fEdad, fTelefono, fDireccion);
-        
-        //Historial Medico
-        String operaciones = textArea1.getText();
-        String padecimientos = textArea2.getText();
-        HistorialMedico historial = new HistorialMedico(operaciones, padecimientos);
-        
-        //Seguro Medico
-        String compania = jTextField5.getText();
-        String clave = jTextField6.getText();
-        Date fechaAdquisicion = Date.valueOf(datePicker5.getDate());
-        Date fechaVencimiento = Date.valueOf(datePicker6.getDate());
-        SeguroMedico seguro = new SeguroMedico(compania, clave, fechaAdquisicion, fechaVencimiento);
-        
-        
-        this.dispose();
+        try{
+            String nombre = jTextField3.getText();
+            String apellido = jTextField4.getText();
+            Date fechaLlegada = Date.valueOf(datePicker3.getDate());
+            Date fechaNacimiento = Date.valueOf(datePicker4.getDate());
+            Residente residente = new Residente(nombre, apellido, fechaLlegada, fechaNacimiento);
+
+            //Cuarto
+            int numCuarto = Integer.parseInt(jTextField1.getText());
+            int cama = Integer.parseInt(jTextField2.getText());
+            Cuarto cuarto = new Cuarto(numCuarto, cama);
+
+            //Familiar
+            String fNombre = jTextField9.getText();
+            int fEdad = Integer.parseInt(jTextField10.getText());
+            String fTelefono = jTextField11.getText();
+            String fDireccion = jTextField12.getText();
+            Familiar familiar = new Familiar(fNombre, fEdad, fTelefono, fDireccion);
+
+            //Historial Medico
+            String operaciones = textArea1.getText();
+            String padecimientos = textArea2.getText();
+            HistorialMedico historial = new HistorialMedico(operaciones, padecimientos);
+
+            //Seguro Medico
+            String compania = jTextField5.getText();
+            String clave = jTextField6.getText();
+            Date fechaAdquisicion = Date.valueOf(datePicker5.getDate());
+            Date fechaVencimiento = Date.valueOf(datePicker6.getDate());
+            SeguroMedico seguro = new SeguroMedico(compania, clave, fechaAdquisicion, fechaVencimiento);
+
+            Registro registro = new Registro();
+            registro.Registrar(residente, cuarto, familiar, historial, seguro);
+
+            this.dispose();
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Faltan datos por ingresar o no son los datos debidos.", "InfoBox: Registro", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
     
     /**

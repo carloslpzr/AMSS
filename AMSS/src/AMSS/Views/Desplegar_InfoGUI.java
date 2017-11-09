@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package AMSS.Views;
-import AMSS.SQLConnection;
-import java.sql.Connection;
+import AMSS.Controllers.DesplegarInfo;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author luiss
@@ -17,7 +18,19 @@ public class Desplegar_InfoGUI extends javax.swing.JFrame {
      */
     public Desplegar_InfoGUI() {
         initComponents();
-        Connection con = SQLConnection.getInstance();
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DesplegarInfo info = new DesplegarInfo();
+        ArrayList<ArrayList<String>> tableInfo = new ArrayList<ArrayList<String>>();
+        tableInfo.addAll(info.getTableInfo());
+        
+        try{
+            tableInfo.forEach((row) -> {
+                model.addRow(new Object[]{null, row.get(0),row.get(1), null});
+            });
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -37,8 +50,8 @@ public class Desplegar_InfoGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Residentes");
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Residentes");
 
         jButton1.setText("Eventualidades");
 
@@ -51,13 +64,10 @@ public class Desplegar_InfoGUI extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Fotografía", "Nombre", "Historial médico", "Medicamentos"
+                "Fotografía", "Nombre", "Padecimientos", "Medicamentos"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

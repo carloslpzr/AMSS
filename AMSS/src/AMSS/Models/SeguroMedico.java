@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package AMSS.Models;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 /**
  *
  * @author Carlos
@@ -21,4 +23,20 @@ public class SeguroMedico {
         this.fechaAdquisicion = fechaAdq;
         this.fechaVencimiento = fechaVen;
     }
+    
+    public void postSeguro(Connection con, int residenteId){
+        String sql = "INSERT INTO SeguroMedico (ID_Residente, Compania, Clave, FechaAdquisicion, FechaVencimiento) VALUES (?, ?, ?, ?, ?);";
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+					statement.setInt(1, residenteId);
+					statement.setString(2, compania);
+                                        statement.setString(3, clave);
+                                        statement.setDate(4, fechaAdquisicion);
+                                        statement.setDate(5, fechaVencimiento);
+					int rowsAffected = statement.executeUpdate();
+					System.out.println(rowsAffected + " row(s) inserted");
+	} catch(Exception e){
+            System.out.println("error");
+        }
+    }
+    
 }

@@ -5,6 +5,10 @@
  */
 package AMSS.Models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Carlos
@@ -20,5 +24,20 @@ public class Familiar {
         this.edad = edad;
         this.telefono = telefono;
         this.direccion = direccion;
+    }
+    
+    public void postFamiliar(Connection con, int residenteId){
+        String sql = "INSERT INTO Familiar (ID_Residente, Nombre, Edad, Telefono, Direccion) VALUES (?, ?, ?, ?, ?);";
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+					statement.setInt(1, residenteId);
+					statement.setString(2, nombre);
+                                        statement.setInt(3,edad);
+                                        statement.setString(4, telefono);
+                                        statement.setString(5,direccion);
+					int rowsAffected = statement.executeUpdate();
+					System.out.println(rowsAffected + " row(s) inserted");
+	} catch(Exception e){
+            System.out.println("error");
+        }
     }
 }

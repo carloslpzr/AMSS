@@ -35,18 +35,19 @@ import java.sql.Date;
 
 public class EventualidadesGUI extends javax.swing.JFrame {
     private Eventualidades eventObj;
+    ArrayList<ArrayList<String>> residentNames;
     /**
      * Creates new form ContactEditor
      */
     public EventualidadesGUI() {
         initComponents();
-        ArrayList<String> residentNames = new ArrayList<String>();
+        residentNames = new ArrayList<ArrayList<String>>();
         ArrayList<String> nurseNames = new ArrayList<String>();
         eventObj = new Eventualidades();
         residentNames.addAll(eventObj.getResidents());
         nurseNames.addAll(eventObj.getNurses());
-        residentNames.forEach((name) -> {
-            choice1.add(name);
+        residentNames.forEach((row) -> {
+            choice1.add(row.get(1));
         });
         nurseNames.forEach((name) -> {
             choice2.add(name);
@@ -187,10 +188,10 @@ public class EventualidadesGUI extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         try{
-            int index = choice1.getSelectedIndex()+1;
+            int index = Integer.parseInt(residentNames.get(choice1.getSelectedIndex()).get(0));
             Date date = Date.valueOf(datePicker1.getDate());
             String description = textArea1.getText();
-            if (index != 0 && date != null && description != null){
+            if (date != null && description != null){
                 eventObj.postEvent(index,date,description);
                 this.dispose();
             }

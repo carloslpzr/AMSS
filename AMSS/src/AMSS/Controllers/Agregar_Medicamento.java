@@ -4,25 +4,25 @@
  * and open the template in the editor.
  */
 package AMSS.Controllers;
+
 import AMSS.SQLConnection;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.Date;
-import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
+
 /**
  *
  * @author Carlos
  */
-public class Eventualidades {
-    private Connection con;
+public class Agregar_Medicamento {
+    Connection con;
     
-    public Eventualidades(){
+    public Agregar_Medicamento(){
         con = SQLConnection.getInstance();
     }
     
-    public ArrayList<ArrayList<String>> getResidents(){
+    public ArrayList<ArrayList<String>> getResidentes(){
         ArrayList<ArrayList<String>> residentes = new ArrayList<ArrayList<String>>();
         ArrayList<String> row = new ArrayList<String>();
         String sql = "SELECT ID, Nombre FROM Residentes";
@@ -39,31 +39,21 @@ public class Eventualidades {
         return residentes;
     }
     
-    public ArrayList<String> getNurses(){
-        ArrayList<String> nurseNames = new ArrayList<String>();
-        String sql = "SELECT Nombre FROM Enfermero;";
+    public ArrayList<ArrayList<String>> getMeds(int id){
+        ArrayList<ArrayList<String>> medicamentos = new ArrayList<ArrayList<String>>();
+        ArrayList<String> row = new ArrayList<String>();
+        String sql = "SELECT ID, Nombre FROM Medicamento WHERE ID_Residente = " + id;
         try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
                 while (resultSet.next()) {
-                        nurseNames.add(resultSet.getString(1));
+                        row.add(resultSet.getString(1));
+                        row.add(resultSet.getString(2));
+                        medicamentos.add(row);
+                        row = new ArrayList<String>();
                 }
         } catch (Exception e) {
             System.out.println("Database error.");
         }
-        return nurseNames;
-    }
-    
-    public void postEvent(int index, Date date, String description){
-        String sql = "INSERT INTO Eventualidad (ID_Residente, Fecha, Acontecimiento) VALUES (?, ?, ?);";
-        try (PreparedStatement statement = con.prepareStatement(sql)) {
-					statement.setInt(1, index);
-					statement.setDate(2, date);
-                                        statement.setString(3, description);
-					int rowsAffected = statement.executeUpdate();
-					System.out.println(rowsAffected + " row(s) inserted");
-	} catch(Exception e){
-            System.out.println("error");
-        }
-
+        return medicamentos;
     }
     
 }

@@ -28,7 +28,11 @@ public class Registro {
     }
     
     public void Registrar(Residente residente, Cuarto cuarto, Familiar familiar, HistorialMedico historial, SeguroMedico seguro){
-        cuarto.post(con);
+        int cuartoId = cuarto.post(con);
+        int residenteId = residente.postResidente(con, cuartoId);
+        familiar.postFamiliar(con, residenteId);
+        historial.postHistorial(con, residenteId);
+        seguro.postSeguro(con, residenteId);
     }
     
 }

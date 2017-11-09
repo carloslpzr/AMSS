@@ -5,6 +5,9 @@
  */
 package AMSS.Models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author Carlos
@@ -17,4 +20,18 @@ public class HistorialMedico {
         this.operaciones = operaciones;
         this.padecimientos = padecimientos;
     }
+    
+    public void postHistorial(Connection con, int residenteId){
+        String sql = "INSERT INTO HistorialMedico (ID_Residente, Operaciones, Padecimientos) VALUES (?, ?, ?);";
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+					statement.setInt(1, residenteId);
+					statement.setString(2, operaciones);
+                                        statement.setString(3, padecimientos);
+					int rowsAffected = statement.executeUpdate();
+					System.out.println(rowsAffected + " row(s) inserted");
+	} catch(Exception e){
+            System.out.println("error");
+        }
+    }
+    
 }
