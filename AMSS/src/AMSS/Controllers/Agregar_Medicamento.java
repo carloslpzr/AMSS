@@ -5,6 +5,7 @@
  */
 package AMSS.Controllers;
 
+import AMSS.Models.Medicamento;
 import AMSS.SQLConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -54,6 +55,20 @@ public class Agregar_Medicamento {
             System.out.println("Database error.");
         }
         return medicamentos;
+    }
+    
+    public void updateMeds(String column, int cantidad, int id){
+        String sql = "UPDATE Medicamento SET " + column + " = " + column + " + " + cantidad + " WHERE ID_Residente = " + id;
+        try (Statement statement = con.createStatement()) {
+                statement.execute(sql);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void insertMeds(int id, String nombre, String tipo, int hora, int contenido, String notificacion, String lot, int dosis){
+        Medicamento med = new Medicamento(id, nombre, tipo, hora, contenido, notificacion, dosis);
+        med.postMeds(con, lot);
     }
     
 }

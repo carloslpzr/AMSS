@@ -19,6 +19,38 @@ public class Residente {
     private String apellidos;
     private Date fechaLlegada;
     private Date fechaNacimiento;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public Date getFechaLlegada() {
+        return fechaLlegada;
+    }
+
+    public void setFechaLlegada(Date fechaLlegada) {
+        this.fechaLlegada = fechaLlegada;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
     
     public Residente(String nombre, String apellidos, Date fechaLlegada, Date fechaNacimiento){
         this.nombre = nombre;
@@ -50,4 +82,8 @@ public class Residente {
         return -1;
     }
     
+    public Residente getResidente(Connection con, int id){
+        
+        return this;
+    }
 }

@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Carlos/Desktop/AMSS/AMSS/src/AMSS/Models/SeguroMedico.java</file>
-            <file>file:/C:/Users/Carlos/Desktop/AMSS/AMSS/src/AMSS/Models/Residente.java</file>
-            <file>file:/C:/Users/Carlos/Desktop/AMSS/AMSS/src/AMSS/Views/RegistroGUI.java</file>
-            <file>file:/C:/Users/Carlos/Desktop/AMSS/AMSS/src/AMSS/Controllers/Registro.java</file>
-            <file>file:/C:/Users/Carlos/Desktop/AMSS/AMSS/src/AMSS/Controllers/Eventualidades.java</file>
-            <file>file:/C:/Users/Carlos/Desktop/AMSS/AMSS/src/AMSS/Models/Cuarto.java</file>
-            <file>file:/C:/Users/Carlos/Desktop/AMSS/AMSS/src/AMSS/Models/Familiar.java</file>
-            <file>file:/C:/Users/Carlos/Desktop/AMSS/AMSS/src/AMSS/Models/HistorialMedico.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

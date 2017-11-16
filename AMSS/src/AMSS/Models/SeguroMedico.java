@@ -38,5 +38,40 @@ public class SeguroMedico {
             System.out.println("error");
         }
     }
+
+    public String getCompania() {
+        return compania;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public Date getFechaAdquisicion() {
+        return fechaAdquisicion;
+    }
+
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public void setCompania(String compania) {
+        this.compania = compania;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public void setFechaAdquisicion(Date fechaAdquisicion) {
+        this.fechaAdquisicion = fechaAdquisicion;
+    }
+
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+    
+    
+    
     
 }

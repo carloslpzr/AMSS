@@ -38,4 +38,22 @@ public class Cuarto {
         }
         return -1;
     }
+
+    public int getCuarto() {
+        return cuarto;
+    }
+
+    public void setCuarto(int cuarto) {
+        this.cuarto = cuarto;
+    }
+
+    public int getCama() {
+        return cama;
+    }
+
+    public void setCama(int cama) {
+        this.cama = cama;
+    }
+    
+    
 }

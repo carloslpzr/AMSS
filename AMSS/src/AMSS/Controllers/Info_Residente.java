@@ -5,40 +5,44 @@
  */
 package AMSS.Controllers;
 
+import AMSS.Models.Residente;
 import AMSS.SQLConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 /**
  *
  * @author Carlos
  */
-public class DesplegarInfo {
-    private Connection con;
+public class Info_Residente {
+    Connection con;
     
-    public DesplegarInfo(){
+    public Info_Residente(){
         con = SQLConnection.getInstance();
     }
     
-    public ArrayList<ArrayList<String>> getTableInfo(){
-        ArrayList<ArrayList<String>> tableInfo = new ArrayList<ArrayList<String>>();
+    
+    public ArrayList<ArrayList<String>> getResidentes(){
+        ArrayList<ArrayList<String>> residentes = new ArrayList<ArrayList<String>>();
         ArrayList<String> row = new ArrayList<String>();
-        
-        String sql = "SELECT r.Nombre, Padecimientos, m.Nombre   FROM Residentes r JOIN HistorialMedico h ON r.ID = h.ID_Residente LEFT JOIN Medicamento m ON m.ID_Residente = r.ID;";
+        String sql = "SELECT ID, Nombre FROM Residentes";
         try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
                 while (resultSet.next()) {
                         row.add(resultSet.getString(1));
                         row.add(resultSet.getString(2));
-                        row.add(resultSet.getString(3));
-                        tableInfo.add(row);
+                        residentes.add(row);
                         row = new ArrayList<String>();
                 }
         } catch (Exception e) {
             System.out.println("Database error.");
         }
-        return tableInfo;
+        return residentes;
     }
     
+    public ArrayList<Object> getInfo(int id){
+        ArrayList<Object> info = new ArrayList<Object>();
+        
+        return info;
+    }
 }

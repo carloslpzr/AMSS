@@ -33,5 +33,22 @@ public class HistorialMedico {
             System.out.println("error");
         }
     }
+
+    public String getOperaciones() {
+        return operaciones;
+    }
+
+    public void setOperaciones(String operaciones) {
+        this.operaciones = operaciones;
+    }
+
+    public String getPadecimientos() {
+        return padecimientos;
+    }
+
+    public void setPadecimientos(String padecimientos) {
+        this.padecimientos = padecimientos;
+    }
+    
     
 }
