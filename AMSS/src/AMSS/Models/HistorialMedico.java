@@ -7,6 +7,8 @@ package AMSS.Models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -15,6 +17,10 @@ import java.sql.PreparedStatement;
 public class HistorialMedico {
     private String operaciones;
     private String padecimientos;
+    
+    public HistorialMedico(){
+        
+    }
     
     public HistorialMedico(String operaciones, String padecimientos){
         this.operaciones = operaciones;
@@ -50,5 +56,14 @@ public class HistorialMedico {
         this.padecimientos = padecimientos;
     }
     
-    
+    public void getHistorial(Connection con, int id){
+        String sql = "SELECT Operaciones, Padecimientos FROM HistorialMedico WHERE ID_Residente = " + id;
+        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+                resultSet.next();
+                this.operaciones = resultSet.getString(1);
+                this.padecimientos = resultSet.getString(2);
+        } catch (Exception e){
+            
+        }
+    } 
 }

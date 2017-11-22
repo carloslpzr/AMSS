@@ -26,7 +26,7 @@ public class Desplegar_InfoGUI extends javax.swing.JFrame {
         
         try{
             tableInfo.forEach((row) -> {
-                model.addRow(new Object[]{null, row.get(0),row.get(1), row.get(2)});
+                model.addRow(new Object[]{row.get(0),row.get(1), row.get(2)});
             });
         } catch(Exception e){
             System.out.println(e.getMessage());
@@ -67,7 +67,7 @@ public class Desplegar_InfoGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Fotografía", "Nombre", "Padecimientos", "Medicamentos"
+                "Nombre", "Padecimientos", "Medicamentos"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

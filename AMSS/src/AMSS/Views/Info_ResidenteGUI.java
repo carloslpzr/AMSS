@@ -6,6 +6,12 @@
 package AMSS.Views;
 
 import AMSS.Controllers.Info_Residente;
+import AMSS.Models.Cuarto;
+import AMSS.Models.Familiar;
+import AMSS.Models.HistorialMedico;
+import AMSS.Models.Residente;
+import AMSS.Models.SeguroMedico;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -16,11 +22,14 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
     Info_Residente infoObj;
     ArrayList<ArrayList<String>> residentes;
     ArrayList<Object> info;
+    Boolean editable;
     /**
      * Creates new form Info_Residente
      */
     public Info_ResidenteGUI() {
         initComponents();
+        editable = false;
+        info = new ArrayList<Object>();
         residentes = new ArrayList<ArrayList<String>>();
         infoObj = new Info_Residente();
         
@@ -30,10 +39,39 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
         });
         
         int id = Integer.parseInt(residentes.get(0).get(0));
-        
         info.addAll(infoObj.getInfo(id));
+        setInfo(info);
+        
     }
 
+    private void setInfo(ArrayList<Object> info){
+        Residente residente = (Residente)info.get(0);
+        jTextField3.setText(residente.getNombre());
+        jTextField4.setText(residente.getApellidos());
+        datePicker3.setDate(residente.getFechaLlegada().toLocalDate());
+        datePicker4.setDate(residente.getFechaNacimiento().toLocalDate());
+        
+        Cuarto cuarto = (Cuarto)info.get(1);
+        jTextField1.setText(""+cuarto.getCuarto());
+        jTextField2.setText(""+cuarto.getCama());
+        
+        Familiar fam = (Familiar)info.get(2);
+        jTextField9.setText(fam.getNombre());
+        jTextField10.setText(fam.getEdad()+"");
+        jTextField11.setText(fam.getTelefono());
+        jTextField12.setText(fam.getDireccion());
+        
+        SeguroMedico seguro = (SeguroMedico)info.get(3);
+        jTextField5.setText(seguro.getCompania());
+        jTextField6.setText(seguro.getClave());
+        datePicker5.setDate(seguro.getFechaAdquisicion().toLocalDate());
+        datePicker6.setDate(seguro.getFechaVencimiento().toLocalDate());
+        
+        HistorialMedico historial = (HistorialMedico)info.get(4);
+        textArea1.setText(historial.getOperaciones());
+        textArea2.setText(historial.getPadecimientos());
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,6 +122,8 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         textArea1 = new java.awt.TextArea();
         textArea2 = new java.awt.TextArea();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,6 +131,11 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jButton2.setText("Editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Registro"));
 
@@ -147,19 +192,22 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(datePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(datePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(datePicker4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
+
+        choice1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                choice1ItemStateChanged(evt);
+            }
+        });
 
         jLabel9.setText("Residente:");
 
@@ -352,6 +400,20 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
                     .addComponent(jLabel18)))
         );
 
+        jButton3.setText("OK");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Cancelar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -360,6 +422,10 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -406,7 +472,10 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(2, 2, 2)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
 
@@ -417,6 +486,29 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void choice1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_choice1ItemStateChanged
+        info.clear();
+        int id = Integer.parseInt(residentes.get(choice1.getSelectedIndex()).get(0));
+        info.addAll(infoObj.getInfo(id));
+        setInfo(info);
+    }//GEN-LAST:event_choice1ItemStateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(editable == false) {
+            editable = true;
+        } else {
+            editable = false;
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -475,6 +567,8 @@ public class Info_ResidenteGUI extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.DatePicker datePicker5;
     private com.github.lgooddatepicker.components.DatePicker datePicker6;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

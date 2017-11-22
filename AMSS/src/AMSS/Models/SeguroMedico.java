@@ -7,6 +7,8 @@ package AMSS.Models;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 /**
  *
  * @author Carlos
@@ -16,6 +18,10 @@ public class SeguroMedico {
     private String clave;
     private Date fechaAdquisicion;
     private Date fechaVencimiento;
+    
+    public SeguroMedico(){
+        
+    }
     
     public SeguroMedico(String compania, String clave, Date fechaAdq, Date fechaVen){
         this.compania = compania;
@@ -71,7 +77,18 @@ public class SeguroMedico {
         this.fechaVencimiento = fechaVencimiento;
     }
     
-    
+    public void getSeguro(Connection con, int id){
+        String sql = "SELECT Compania, Clave, FechaAdquisicion, FechaVencimiento FROM SeguroMedico WHERE ID_Residente = " + id;
+        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+                resultSet.next();
+                this.compania = resultSet.getString(1);
+                this.clave = resultSet.getString(2);
+                this.fechaAdquisicion = resultSet.getDate(3);
+                this.fechaVencimiento = resultSet.getDate(4);
+        } catch (Exception e){
+            
+        }
+    }
     
     
 }

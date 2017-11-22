@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.Period;
 /**
@@ -52,6 +53,9 @@ public class Residente {
         this.fechaNacimiento = fechaNacimiento;
     }
     
+    public Residente(){
+    }
+    
     public Residente(String nombre, String apellidos, Date fechaLlegada, Date fechaNacimiento){
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -82,8 +86,25 @@ public class Residente {
         return -1;
     }
     
-    public Residente getResidente(Connection con, int id){
-        
-        return this;
+    public int getResidente(Connection con, int id){
+        String[] names;
+        String sql = "SELECT Nombre, fechaNacimiento, FechaLlegada, ID_Cuarto FROM Residentes WHERE ID = " + id;
+        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+                resultSet.next();
+                names = resultSet.getString(1).split(" ");
+                this.nombre = names[0];
+                this.apellidos = "";
+                for(int i = 1; i < names.length; i++){
+                    if(names[i] != null && !names[i].isEmpty()){
+                        this.apellidos += names[i];
+                    }
+                }
+                this.fechaNacimiento = resultSet.getDate(2);
+                this.fechaLlegada = resultSet.getDate(3);
+                return resultSet.getInt(4);
+        } catch (Exception e){
+            
+        }
+        return -1;
     }
 }

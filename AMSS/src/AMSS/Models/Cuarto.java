@@ -8,6 +8,7 @@ package AMSS.Models;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 /**
  *
  * @author Carlos
@@ -15,6 +16,10 @@ import java.sql.ResultSet;
 public class Cuarto {
     private int cuarto;
     private int cama;
+    
+    public Cuarto(){
+        
+    }
     
     public Cuarto(int cuarto, int cama){
         this.cuarto = cuarto;
@@ -55,5 +60,15 @@ public class Cuarto {
         this.cama = cama;
     }
     
+    public void getCuartoInfo(Connection con, int id){
+        String sql = "SELECT NumeroCuarto, NumeroCama FROM Cuarto WHERE ID = " + id;
+        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+                resultSet.next();
+                this.cuarto = resultSet.getInt(1);
+                this.cama = resultSet.getInt(2);
+        } catch (Exception e){
+            
+        }
+    }
     
 }

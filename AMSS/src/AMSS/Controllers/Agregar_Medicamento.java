@@ -66,8 +66,8 @@ public class Agregar_Medicamento {
         }
     }
     
-    public void insertMeds(int id, String nombre, String tipo, int hora, int contenido, String notificacion, String lot, int dosis){
-        Medicamento med = new Medicamento(id, nombre, tipo, hora, contenido, notificacion, dosis);
+    public void insertMeds(int id, String nombre, String tipo, int contenido, String notificacion, String lot, int dosis, Boolean manana, Boolean tarde, Boolean noche){
+        Medicamento med = new Medicamento(id, nombre, tipo, contenido, notificacion, dosis, manana, tarde, noche);
         med.postMeds(con, lot);
     }
     

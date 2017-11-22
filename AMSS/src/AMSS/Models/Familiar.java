@@ -8,6 +8,7 @@ package AMSS.Models;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -18,6 +19,10 @@ public class Familiar {
     private int edad;
     private String telefono;
     private String direccion;
+    
+    public Familiar(){
+        
+    }
     
     public Familiar(String nombre, int edad, String telefono, String direccion){
         this.nombre = nombre;
@@ -73,5 +78,16 @@ public class Familiar {
         this.direccion = direccion;
     }
     
-    
+    public void getFamiliar(Connection con, int id){
+        String sql = "SELECT Nombre, Edad, Telefono, Direccion FROM Familiar WHERE ID_Residente = " + id;
+        try (Statement statement = con.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
+                resultSet.next();
+                this.nombre = resultSet.getString(1);
+                this.edad = resultSet.getInt(2);
+                this.telefono = resultSet.getString(3);
+                this.direccion = resultSet.getString(4);
+        } catch (Exception e){
+            
+        }
+    }
 }

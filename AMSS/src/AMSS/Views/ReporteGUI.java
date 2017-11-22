@@ -30,11 +30,35 @@
 
 package AMSS.Views;
 
+import AMSS.Controllers.Reporte;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class ReporteGUI extends javax.swing.JFrame {
+    Reporte report;
     
-    /** Creates new form Antenna */
+    
     public ReporteGUI() {
         initComponents();
+        
+        report = new Reporte();
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        ArrayList<ArrayList<String>> tableInfo = new ArrayList<ArrayList<String>>();
+        tableInfo.addAll(report.getTableInfo());
+        
+        try{
+            tableInfo.forEach((row) -> {
+                model.addRow(new Object[]{row.get(0),row.get(1), row.get(2), row.get(3)});
+                if(row.get(4).equals("alert")){
+                    JOptionPane.showMessageDialog(null, row.get(0) + " necesita mas " + row.get(1), "InfoBox: Reporte", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
     }
     
     /** This method is called from within the constructor to
@@ -57,24 +81,10 @@ public class ReporteGUI extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nombre", "Medicinas", "Dosis", "Title 4"
+                "Nombre", "Medicina", "Dosis", "Turno"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

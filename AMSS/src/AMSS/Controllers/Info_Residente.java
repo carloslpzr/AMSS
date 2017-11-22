@@ -5,7 +5,11 @@
  */
 package AMSS.Controllers;
 
+import AMSS.Models.Cuarto;
+import AMSS.Models.Familiar;
+import AMSS.Models.HistorialMedico;
 import AMSS.Models.Residente;
+import AMSS.Models.SeguroMedico;
 import AMSS.SQLConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -42,6 +46,26 @@ public class Info_Residente {
     
     public ArrayList<Object> getInfo(int id){
         ArrayList<Object> info = new ArrayList<Object>();
+        
+        Residente residente = new Residente();
+        int cuartoID = residente.getResidente(con, id);
+        info.add(residente);
+        
+        Cuarto cuarto = new Cuarto();
+        cuarto.getCuartoInfo(con, cuartoID);
+        info.add(cuarto);
+        
+        Familiar familiar = new Familiar();
+        familiar.getFamiliar(con, id);
+        info.add(familiar);
+        
+        SeguroMedico seguro = new SeguroMedico();
+        seguro.getSeguro(con, id);
+        info.add(seguro);
+        
+        HistorialMedico historial = new HistorialMedico();
+        historial.getHistorial(con, id);
+        info.add(historial);
         
         return info;
     }
