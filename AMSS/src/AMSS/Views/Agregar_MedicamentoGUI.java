@@ -8,6 +8,7 @@ package AMSS.Views;
 import AMSS.Controllers.Agregar_Medicamento;
 import java.util.ArrayList;
 import java.sql.Time;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -251,8 +252,8 @@ public class Agregar_MedicamentoGUI extends javax.swing.JFrame {
                             .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSpinner7, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jSpinner10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jSpinner10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel21))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(checkbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,9 +349,15 @@ public class Agregar_MedicamentoGUI extends javax.swing.JFrame {
         int id = Integer.parseInt(residentes.get(choice1.getSelectedIndex()).get(0));
         
         if(textField1.getText().equals("")){
-            if((Integer)jSpinner4.getValue() != 0){
+            int cant = (Integer)jSpinner4.getValue();
+            int cantML = (Integer)jSpinner5.getValue();
+            if((cant != 0 && cantML != 0) || cant < 0 || cantML < 0){
+                JOptionPane.showMessageDialog(null, "Solo se puede ingresar cantidad de un solo tipo y el valor debe ser positivo.", "InfoBox: Agregar Medicamento", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            if(cant != 0){
                 medObj.updateMeds("Contenido", (Integer)jSpinner4.getValue(), id);
-            } else if ((Integer)jSpinner5.getValue() != 0){
+            } else if (cantML != 0){
                 medObj.updateMeds("ContenidoML", (Integer)jSpinner5.getValue(), id);
             }
             
@@ -371,6 +378,14 @@ public class Agregar_MedicamentoGUI extends javax.swing.JFrame {
             } else if ((Integer)jSpinner8.getValue() != 0){
                 contenido = (Integer)jSpinner8.getValue();
                 lot = "ContenidoML";
+            }
+            
+            int cant = (Integer)jSpinner7.getValue();
+            int cantML = (Integer)jSpinner8.getValue();
+            
+            if((cant != 0 && cantML != 0) || cant < 0 || cantML < 0 || dosis < 0){
+                JOptionPane.showMessageDialog(null, "Solo se puede ingresar cantidad de un solo tipo y el valor de la dosis y cantidad deben ser positivo.", "InfoBox: Agregar Medicamento", JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
             
             medObj.insertMeds(id, nombre, tipo, contenido, notificacion, lot, dosis, manana, tarde, noche);
